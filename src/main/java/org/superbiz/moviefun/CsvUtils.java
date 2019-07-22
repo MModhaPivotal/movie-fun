@@ -6,25 +6,33 @@ import com.fasterxml.jackson.databind.ObjectReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.System.in;
+
 public class CsvUtils {
 
+
+    //static InputStream in = getClass().getClassLoader().getResourceAsStream("album-fixtures.csv");
+
+
     public static String readFile(String path) {
-        try {
-            Scanner scanner = new Scanner(new File(path)).useDelimiter("\\A");
+        //get class loader from getClassLoader function
+        //ClassLoader classLoader = Thread.currentThread().getClassLoader();
+        ClassLoader classLoader = CsvUtils.class.getClassLoader();
+        Scanner scanner = new Scanner(classLoader.getResourceAsStream(path)).useDelimiter("\\A");
 
-            if (scanner.hasNext()) {
-                return scanner.next();
-            } else {
-                return "";
-            }
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        if (scanner.hasNext()) {
+            return scanner.next();
+        } else {
+            return "";
         }
+
+
+
     }
 
     public static <T> List<T> readFromCsv(ObjectReader objectReader, String path) {
@@ -42,4 +50,6 @@ public class CsvUtils {
             throw new RuntimeException(e);
         }
     }
+
+
 }

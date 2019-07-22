@@ -24,6 +24,7 @@ public class HomeController {
         this.albumsBean = albumsBean;
         this.movieFixtures = movieFixtures;
         this.albumFixtures = albumFixtures;
+
     }
 
     @GetMapping("/")
